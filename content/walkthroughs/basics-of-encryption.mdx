@@ -1,0 +1,69 @@
+---
+title: Basics of Encryption — Walkthrough
+slug: basics-of-encryption
+lab: content/labs/basics-of-encryption.mdx
+visibility: always
+isPublished: true
+---
+
+**Step 1: Look at what you're given**
+
+The lab hands you this cipher text:
+
+`synt{ebg13vfabgrapelcgvba}`
+
+It's wrapped in `synt{...}`, which looks a lot like the `flag{...}` format used  
+
+everywhere else on the platform — just with every letter shifted. That's the  
+
+*first clue: this isn't real encryption, it's a substitution cipher.*
+
+**Step 2: Recognize ROT13**
+
+The lab's instructions cover the Caesar Cipher and its most common variant,  
+
+ROT13 — a shift of exactly 13 letters. ROT13 is symmetric, so running the  
+
+same shift twice returns the original text. Since the alphabet has 26 letters,  
+
+shifting by 13 is its own inverse.
+
+Check the pattern: synt → shift each letter back 13 places →
+
+s -> f
+
+y -> l
+
+n -> a
+
+t -> g
+
+synt becomes flag. That confirms it: this is ROT13.
+
+**Step 3: Decode it — browser method**
+
+The fastest way for most learners:
+
+1\.  Search "ROT13 decoder" in your browser.
+
+2\.  Paste in synt{ebg13vfabgrapelcgvba}.
+
+3\.  Read off the decoded plaintext.
+
+Step 4: Decode it — terminal method
+
+If you'd rather do it locally, tr can remap the alphabet in one line:
+
+bash
+
+`echo "synt{ebg13vfabgrapelcgvba}" | tr 'A-Za-z' 'N-ZA-Mn-za-m'`
+
+This maps A-Z and a-z onto themselves shifted by 13, which is exactly what  
+
+ROT13 does — no external tool required.
+
+Step 5: Submit the flag
+
+Either method produces the same plaintext:
+
+`flag{rot13isnotencryption}`
